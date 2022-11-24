@@ -3,23 +3,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: springapp
-  namespace: default
+  name: petclinic
+  namespace: argocd
   labels:
-    app: springapp
+    app: petclinic
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: springapp
+      app: petclinic
   template:
     metadata:
       name: petclinic-tem
       labels:
-        app: springapp
+        app: petclinic
     spec:
       containers:
-      - name: springapp
+      - name: petclinic
         image: asia-docker.pkg.dev/GOOGLE_CLOUD_PROJECT/gcpzg/springapp:COMMIT_SHA
         ports:
         - containerPort: 8080

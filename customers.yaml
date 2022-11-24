@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customers
+  labels:
+    app: spring-petclinic
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: spring-petclinic
+      tier: customers
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: spring-petclinic
+        tier: customers
+    spec:
+      containers:
+        - image: asia-northeast3-docker.pkg.dev/hyunyoung-01-368306/gcpzg/spring-petclinic-customers-service:latest
+          imagePullPolicy: Always
+          name: customers
+          ports:
+            - containerPort: 8080
+          env:
+          - name: MYSQL_HOSTINFO
+            valueFrom:
+              configMapKeyRef:
+                name: mysql-config
+                key: hostinfo
+          - name: MYSQL_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: mysql-credential
+                key: username
+          - name: MYSQL_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mysql-credential
+                key: password
+          - name: spring.profiles.active
+            value: mysql
+#          readinessProbe:
+#            httpGet:
+#              path: /actuator/health
+#              port: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+#    cloud.google.com/backend-config: '{"default": "customer-be"}'
+  name: customers-service
+  labels:
+    app: spring-petclinic
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app: spring-petclinic
+    tier: customers

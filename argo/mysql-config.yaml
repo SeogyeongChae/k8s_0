@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: argocd
+  name: mysql-config
+  labels:
+    app: spring-petclinic
+data:
+  hostinfo: 10.42.122.3:3306

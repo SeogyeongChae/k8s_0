@@ -1,27 +1,27 @@
 ### deployment.yaml ###
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: petclinic
-  namespace: argocd
-  labels:
-    app: petclinic
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: petclinic
-  template:
-    metadata:
-      name: petclinic-tem
-      labels:
-        app: petclinic
-    spec:
-      containers:
-      - name: petclinic
-        image: asia-docker.pkg.dev/hyunyoung-01-368306/gcpzg/spring-petclinic-admin-server:latest
-        ports:
-        - containerPort: 8080
+# ---
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: petclinic
+#   namespace: argocd
+#   labels:
+#     app: spring-petclinic
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: petclinic
+#   template:
+#     metadata:
+#       name: petclinic-tem
+#       labels:
+#         app: petclinic
+#     spec:
+#       containers:
+#       - name: petclinic
+#         image: asia-docker.pkg.dev/hyunyoung-01-368306/gcpzg/spring-petclinic-admin-server:latest
+#         ports:
+#         - containerPort: 8080
 
 

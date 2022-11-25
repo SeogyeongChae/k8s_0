@@ -20,6 +20,8 @@ spec:
     spec:
       containers:
       - name: petclinic
-        image: asia-docker.pkg.dev/GOOGLE_CLOUD_PROJECT/gcpzg/springapp:COMMIT_SHA
+        image: asia-docker.pkg.dev/hyunyoung-01-368306/gcpzg/spring-petclinic-visits-service:latest
         ports:
         - containerPort: 8080
+
+
